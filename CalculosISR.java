@@ -9,35 +9,40 @@ import javax.swing.JOptionPane;
 public class CalculosISR {                      // => Quedan Igual
 	private PanelResultados pr;
 	
-	private String nombre;//
-	private String RFC;//
-	private int SueldoM;//
-	private int IngresoA;
-	private int Aguinaldo;//
-	private int AguinaldoE;
-	private int AguinaldoG;
-	private int PrimaV;//
-	private int PrimaVE;
-	private int PrimaVG;
-	private int TotalIngresosG;
-	private int MyH;//
-	private int GatsosFun;//
-	private int SGMM;//
-	private int Hipotecarios;//
-	private int Donativos;//
-	private int SubRetiro;//
-	private int TransporteE;//
-	private String NivelE;//
-	private int MaxDedColeg;
-	private int Colegiatura;//
-	private int TotalDedNoRetiro;
-	private int DedPerm;
-	private int MontoISR;
-	private int CuotaFija;
-	private int PorcExced;
-	private int PagoEx;
-	private int Total;
+	private String nombre,//
+					RFC,//
+					NivelE;//
+	
+	private double SueldoM,//
+					IngresoA,
+					Aguinaldo,//
+					AguinaldoE,
+					AguinaldoG,
+					PrimaV,//
+					PrimaVE,
+					PrimaVG,
+					TotalIngresosG,
+					MyH,//
+					GatsosFun,//
+					SGMM,//
+					Hipotecarios,//
+					Donativos,//
+					SubRetiro,//
+					TransporteE,//
+					MaxDedColeg,
+					Colegiatura,//
+					TotalDedNoRetiro,
+					DedPermSinRetiro,
+					DedPerm,
+					MontoISR,
+					CuotaFija,
+					LimiteInf,
+					PorcExced,
+					PagoEx,
+					Total;
+	
 	private StatusBar sb;
+	
 	
 	private JFileChooser fileChooser;
 	private BufferedReader br;
@@ -75,15 +80,16 @@ public class CalculosISR {                      // => Quedan Igual
 		this.DedPerm=0;
 		this.MontoISR=0;
 		this.CuotaFija=0;
+		this.LimiteInf=0;
 		this.PorcExced=0;
 		this.PagoEx=0;
 		this.Total=0;
 		fileChooser=new JFileChooser();
 		
 	}
-	public void Actualizar(String name, String rfc, int sueldoM, int Aguinaldo, int PrimaV, int DMyH,
-			int GastosFun, int SGMM, int Hipotecarios, int Donativos, int AportacionRet, int Transporte, String NivelE,
-			int Colegiatura) {
+	public void Actualizar(String name, String rfc, double sueldoM, double Aguinaldo, double PrimaV, double DMyH,
+			double GastosFun, double SGMM, double Hipotecarios, double Donativos, double AportacionRet, double Transporte, String NivelE,
+			double Colegiatura) {
 		this.nombre=name;//
 		this.RFC=rfc;//
 		this.SueldoM=sueldoM;//
@@ -101,22 +107,24 @@ public class CalculosISR {                      // => Quedan Igual
 		this.Colegiatura=Colegiatura;//
 		
 		
-		
-		this.AguinaldoE=0;//Calcular desde aqui =>
-		this.AguinaldoG=0;
-		this.PrimaVE=0;
-		this.PrimaVG=0;
-		this.TotalIngresosG=0;
-		this.MaxDedColeg=0;
-		this.TotalDedNoRetiro=0;
-		this.DedPerm=0;
-		this.MontoISR=0;
-		this.CuotaFija=0;
-		this.PorcExced=0;
-		this.PagoEx=0;
-		this.Total=0;// Hata aqui <=
-		
-		
+		//CALCULOS
+		this.AguinaldoE=this.SueldoM/2;
+		this.AguinaldoG=this.Aguinaldo-this.AguinaldoE;
+		this.PrimaVE=80.04*15;
+		this.PrimaVG=this.PrimaV-this.PrimaVE;
+		this.TotalIngresosG=this.IngresoA+this.AguinaldoG+this.PrimaVG;
+		this.MaxDedColeg= DedColegiatura(this.NivelE);
+		this.TotalDedNoRetiro=this.MyH+this.GatsosFun+this.SGMM+this.Hipotecarios+this.Donativos+this.TransporteE+this.MaxDedColeg;
+		this.DedPermSinRetiro=(this.IngresoA+this.Aguinaldo+this.PrimaV)*.1;
+		if(this.SubRetiro < this.DedPermSinRetiro) {
+			this.DedPerm=this.DedPermSinRetiro+this.SubRetiro;
+		}else {
+			this.DedPerm=2*this.DedPermSinRetiro;
+		}
+		this.MontoISR=this.TotalIngresosG-this.DedPerm;
+		TarifaISR(this.MontoISR);
+		this.PagoEx=(this.MontoISR-this.LimiteInf)*(this.PorcExced/100);
+		this.Total=this.CuotaFija+this.PagoEx;
 		pr.Imprimir(this.nombre, this.RFC, this.SueldoM,this.IngresoA,this.Aguinaldo,this.PrimaV,this.MyH,this.GatsosFun,this.SGMM,this.Hipotecarios,this.Donativos,this.SubRetiro,this.TransporteE,this.NivelE,this.Colegiatura,this.AguinaldoE,this.AguinaldoG,this.PrimaVE,this.PrimaVG,this.TotalIngresosG,this.MaxDedColeg,this.TotalDedNoRetiro,this.DedPerm,this.MontoISR,this.CuotaFija,this.PorcExced,this.PagoEx,this.Total);
 		
 		
@@ -212,24 +220,89 @@ public class CalculosISR {                      // => Quedan Igual
 		this.Colegiatura=colegiaturaP;//
 		
 		
-		
-		this.AguinaldoE=0;//Calcular desde aqui =>
-		this.AguinaldoG=0;
-		this.PrimaVE=0;
-		this.PrimaVG=0;
-		this.TotalIngresosG=0;
-		this.MaxDedColeg=0;
-		this.TotalDedNoRetiro=0;
-		this.DedPerm=0;
-		this.MontoISR=0;
-		this.CuotaFija=0;
-		this.PorcExced=0;
-		this.PagoEx=0;
-		this.Total=0;// Hata aqui <=
+		//CALCULOS
+		this.AguinaldoE=this.SueldoM/2;
+		this.AguinaldoG=this.Aguinaldo-this.AguinaldoE;
+		this.PrimaVE=80.04*15;
+		this.PrimaVG=this.PrimaV-this.PrimaVE;
+		this.TotalIngresosG=this.IngresoA+this.AguinaldoG+this.PrimaVG;
+		this.MaxDedColeg= DedColegiatura(this.NivelE);
+		this.TotalDedNoRetiro=this.MyH+this.GatsosFun+this.SGMM+this.Hipotecarios+this.Donativos+this.TransporteE+this.MaxDedColeg;
+		this.DedPermSinRetiro=(this.IngresoA+this.Aguinaldo+this.PrimaV)*.1;
+		if(this.SubRetiro < this.DedPermSinRetiro) {
+			this.DedPerm=this.DedPermSinRetiro+this.SubRetiro;
+		}else {
+			this.DedPerm=2*this.DedPermSinRetiro;
+		}
+		this.MontoISR=this.TotalIngresosG-this.DedPerm;
+		TarifaISR(this.MontoISR);
+		this.PagoEx=(this.MontoISR-this.LimiteInf)*(this.PorcExced/100);
+		this.Total=this.CuotaFija+this.PagoEx;
 		
 		
 	}
 	
+	public double DedColegiatura(String NivelE) {
+		if(NivelE == "Preescolar" ) {
+			return 14200;
+		}else if(NivelE == "Primaria" ) {
+			return 12900;
+		}else if(NivelE == "Secundaria") {
+			return 19900;
+		}else if(NivelE == "Profesional Tecnico") {
+			return 17100;
+		}else{
+			return 24500;	
+		}
+	}
+	
+	public void TarifaISR(double MontoISR) {
+		if(0.01<MontoISR && MontoISR<5952.84) {
+			this.CuotaFija=0;
+			this.PorcExced=1.92;
+			this.LimiteInf=0.01;
+		}else if(5952.85<MontoISR && MontoISR<50524.92) {
+			this.CuotaFija=114.29;
+			this.PorcExced=6.40;
+			this.LimiteInf=5952.85;
+		}else if(50524.93<MontoISR && MontoISR<88793.04) {
+			this.CuotaFija=2966.91;
+			this.PorcExced=10.88;
+			this.LimiteInf=50524.93;
+		}else if(88793.05<MontoISR && MontoISR<103218) {
+			this.CuotaFija=7130.48;
+			this.PorcExced=16;
+			this.LimiteInf=88793.05;
+		}else if(103218.01<MontoISR && MontoISR<123580.20){
+			this.CuotaFija=9438.47;
+			this.PorcExced=17.92;
+			this.LimiteInf=103218.01;
+		}else if(123580.21<MontoISR && MontoISR<249243.48){
+			this.CuotaFija=13087.37;
+			this.PorcExced=21.36;
+			this.LimiteInf=123580.21;
+		}else if(249243.49<MontoISR && MontoISR<392841.96){
+			this.CuotaFija=39929.05;
+			this.PorcExced=23.52;
+			this.LimiteInf=249243.49;
+		}else if(392841.97<MontoISR && MontoISR<750000){
+			this.CuotaFija=73703.41;
+			this.PorcExced=30;
+			this.LimiteInf=392841.97;
+		}else if(750000.01<MontoISR && MontoISR<1000000){
+			this.CuotaFija=180850.82;
+			this.PorcExced=32;
+			this.LimiteInf=750000.01;
+		}else if(1000000.01<MontoISR && MontoISR<3000000){
+			this.CuotaFija=260850.81;
+			this.PorcExced=34;
+			this.LimiteInf=1000000.01;
+		}else if(3000000.01<MontoISR){
+			this.CuotaFija=940850.81;
+			this.PorcExced=35;
+			this.LimiteInf=3000000.01;
+		}
+	}
 	
 	public void EntradaySalida() {
 		returnVal=fileChooser.showOpenDialog(null);
@@ -325,4 +398,5 @@ public class CalculosISR {                      // => Quedan Igual
 	
 	
 }
+ 
  
