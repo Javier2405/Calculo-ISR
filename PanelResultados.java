@@ -9,32 +9,32 @@ import javax.swing.JPanel;
 public class PanelResultados extends JPanel{
 	private String nombre;
 	private String rfc;
-	private int sueldoMes;
-	private int ingresoAnual;
-	private int Aguinaldo;
-	private int AguinaldoExento;
-	private int AguinaldoGravado;
-	private int PrimaV;
-	private int PrimaVE;
-	private int PrimaVG;
-	private int TotalIngresosG;
-	private int SGMM;
-	private int GastosF;
-	private int MyH;
-	private int Hipotecarios;
-	private int Donativos;
-	private int SubRetiro;
-	private int TransporteE;
 	private String NivelE;
-	private int MaxDedColeg;
-	private int ColegPag;
-	private int DedPermit;
-	private int TotalDeduc;
-	private int MontoISR;
-	private int CuotaF;
-	private int PorcentEx;
-	private int PagoEx;
-	private int Total;
+	private double sueldoMes,
+					ingresoAnual,
+					Aguinaldo,
+					AguinaldoExento,
+					AguinaldoGravado,
+					PrimaV,
+					PrimaVE,
+					PrimaVG,
+					TotalIngresosG,
+					SGMM,
+					GastosF,
+					MyH,
+					Hipotecarios,
+					Donativos,
+					SubRetiro,
+					TransporteE,
+					MaxDedColeg,
+					ColegPag,
+					DedPermit,
+					TotalDeduc,
+					MontoISR,
+					CuotaF,
+					PorcentEx,
+					PagoEx,
+					Total;
 	public PanelResultados() {
 		super();
 		this.sueldoMes=0;
@@ -128,7 +128,7 @@ public class PanelResultados extends JPanel{
 		
 		g.drawString("TRANS ESCOLAR:", 30, 470);
 		g.drawString("NIVEL EDUCATIVO:", 175, 470);
-		g.drawString("M¡X A DEDUCIR COLEGIATURA:", 325, 470);
+		g.drawString("M√ÅX A DEDUCIR COLEGIATURA:", 325, 470);
 		
 		g.drawString("COLEGIATURA PAGADA:", 25, 540);
 		g.drawString("DEDUC PERMITIDA 10%:", 175, 540);
@@ -179,11 +179,11 @@ public class PanelResultados extends JPanel{
 	}
 
 
-	public void Imprimir(String nombre2, String rfc2, int sueldoM, int ingresoA, int aguinaldo2, int primaV2, int myH2,
-			int gastosFun, int sgmm2, int hipotecarios2, int donativos2, int subRetiro2, int transporteE2,
-			String nivelE2, int colegiatura, int aguinaldoE, int aguinaldoG, int primaVE2, int primaVG2,
-			int totalIngresosG2, int maxDedColeg2, int totalDedNoRetiro, int dedPerm, int montoISR2, int cuotaFija,
-			int porcExced, int pagoEx2, int total2) {
+	public void Imprimir(String nombre2, String rfc2, double sueldoM, double ingresoA, double aguinaldo2, double primaV2, double myH2,
+			double gatsosFun, double sGMM2, double hipotecarios2, double donativos2, double subRetiro2, double transporteE2,
+			String nivelE2, double colegiatura, double aguinaldoE, double aguinaldoG, double primaVE2, double primaVG2,
+			double totalIngresosG2, double maxDedColeg2, double totalDedNoRetiro, double dedPerm, double montoISR2, double cuotaFija,
+			double porcExced, double pagoEx2, double total2) {
 		this.nombre=nombre2;
 		this.rfc=rfc2;
 		this.sueldoMes=sueldoM;
@@ -195,8 +195,8 @@ public class PanelResultados extends JPanel{
 		this.PrimaVE=primaVE2;
 		this.PrimaVG=primaVG2;
 		this.TotalIngresosG=totalIngresosG2;
-		this.SGMM=sgmm2;
-		this.GastosF=gastosFun;
+		this.SGMM=sGMM2;
+		this.GastosF=gatsosFun;
 		this.MyH=myH2;
 		this.Hipotecarios=hipotecarios2;
 		this.Donativos=donativos2;
