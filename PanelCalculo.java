@@ -40,7 +40,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 	private JButton Guardar;
 	private JButton Regresar;
 	private String NivelE;
-	private JButton calcularArchivo;
+	private JButton Limpiar;
 	
 
 	private JFileChooser fileChooser;
@@ -79,10 +79,9 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		bg.add(this.Secundaria);
 		bg.add(this.Preparatoria);
 		this.ColegiaturaTot=new JTextField(5);
-		this.Abrir=new JButton("Vizualizar");
+		this.Abrir=new JButton("VIZUALIZAR RESULTADOS");
 		this.Guardar=new JButton("GUARDAR");
 		this.Submit=new JButton("CALCULAR ISR");
-		this.calcularArchivo=new JButton("ABRIR/CALCULAR");
 		this.Regresar=new JButton("Home");
 		
 		this.add(new JLabel("CALCULADORA ISR"));
@@ -120,6 +119,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.add(new JLabel("COLEGIATURA TOTAL $"));
 		this.add(this.ColegiaturaTot);
 		this.add(this.Submit);
+		this.add(this.Limpiar);
 		this.add(new JLabel("                  ------------------------------------------------------------                 "));
 		this.add(new JLabel("                    ARCHIVOS                             "));
 		this.add(this.Abrir);
@@ -128,11 +128,9 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.Submit.addActionListener(this);
 		this.Abrir.addActionListener(this);
 		this.Guardar.addActionListener(this);
-		this.add(this.calcularArchivo);
 		this.add(this.Regresar);
-		this.calcularArchivo.addActionListener(this);
 		this.Regresar.addActionListener(this);
-		
+		this.Limpiar.addActionListener(this);
 		
 		fileChooser=new JFileChooser();
 	}
