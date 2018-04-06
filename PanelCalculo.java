@@ -51,6 +51,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 	
 	
 	
+	
 	public PanelCalculo(CalculosISR Cal, StatusBar sb) {
 		super();
 		this.Cal=Cal;
@@ -107,7 +108,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.add(this.Hipotecarios);
 		this.add(new JLabel("DONATIVOS $"));
 		this.add(this.Donativos);
-		this.add(new JLabel("APORTACIÓN RETIRO $"));
+		this.add(new JLabel("APORTACIÃ“N RETIRO $"));
 		this.add(this.AportacionRet);
 		this.add(new JLabel("TRANSPORTE ESCOLAR $"));
 		this.add(this.TransporteE);
@@ -147,22 +148,12 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		
 		try {
 			if(e.getSource()==this.Submit) {
-				if(this.Primaria.isSelected()) {
-					this.NivelE="Primaria";
-				}else if(this.Secundaria.isSelected()) {
-					this.NivelE="Secundaria";
-				}else {
-					this.NivelE="Preparatoria";
-				}
-				Cal.Actualizar(this.nombre.getText(),this.RFC.getText(),Integer.parseInt(this.SueldoM.getText()), Integer.parseInt(this.Aguinaldo.getText()),Integer.parseInt(this.PrimaV.getText()),Integer.parseInt(this.DMyHosp.getText()),Integer.parseInt(this.GastosFun.getText()),Integer.parseInt(this.SGMM.getText()),Integer.parseInt(this.Hipotecarios.getText()),Integer.parseInt(this.Donativos.getText()),Integer.parseInt(this.AportacionRet.getText()),Integer.parseInt(this.TransporteE.getText()),this.NivelE,Integer.parseInt(this.ColegiaturaTot.getText()));
+				this.previoCal();
 			}else if(e.getSource()==this.Abrir) {
 				System.out.println("abrir");
 				this.abrirDatos();
 				
 				
-			}else if(e.getSource()==this.calcularArchivo){
-				System.out.println("calcular");
-				this.EntradaySalida();
 			}else if(e.getSource() == this.Regresar) {
 				VentanaInicio vi = new VentanaInicio();
 
@@ -171,8 +162,8 @@ public class PanelCalculo extends JPanel implements ActionListener{
 			}
 		}
 		catch(NumberFormatException es){
-			JOptionPane.showMessageDialog(this,"Recuerda rellenar todos los campos, de manera correcta, incluye el 0");
-			this.sb.setMessage("Revisa los datos, si no existen gastos sustituye por 0");
+			JOptionPane.showMessageDialog(this,"Recuerda rellenar todos los campos, de manera correcta");
+			this.sb.setMessage("Recuarda no incluir letras en campos de gastos");
 		}catch(Exception es) {
 			JOptionPane.showMessageDialog(this,"Rellena todos los campos, error");
 		}
@@ -181,73 +172,84 @@ public class PanelCalculo extends JPanel implements ActionListener{
 	}
 
 
-
-
-
-	private void EntradaySalida() {
-		returnVal=fileChooser.showOpenDialog(null);
-		if(returnVal==JFileChooser.APPROVE_OPTION) {
-			file=fileChooser.getSelectedFile();
-			StringTokenizer st;
-			try{
-				br=new BufferedReader(new FileReader(file));
-				currentLine=br.readLine();
-				st=new StringTokenizer(currentLine);
-				
-				String name=st.nextToken(",");//
-				
-				String rfc=st.nextToken(",");//
-				
-				Double sueldo=(Double.parseDouble(st.nextToken(",")));
-				int sueldoM= sueldo.intValue();//
-				
-				
-				
-				Double Aguinaldo=(Double.parseDouble(st.nextToken(",")));
-				int aguinaldo=Aguinaldo.intValue();
-				
-				
-				
-				Double Primav=(Double.parseDouble(st.nextToken(",")));
-				int PrimaV=Primav.intValue();
-				
-				
-				Double MyH=(Double.parseDouble(st.nextToken(",")));
-				int myh=MyH.intValue();
-				
-				Double GF=(Double.parseDouble(st.nextToken(",")));
-				int Funerarios=GF.intValue();
-				
-				Double SGMM=(Double.parseDouble(st.nextToken(",")));
-				int sgmm=SGMM.intValue();
-				
-				Double Hip=(Double.parseDouble(st.nextToken(",")));
-				int hipotecarios=Hip.intValue();
-				
-				Double Donat=(Double.parseDouble(st.nextToken(",")));
-				int Donativos=Donat.intValue();
-				
-				Double SubR=(Double.parseDouble(st.nextToken(",")));
-				int subR=SubR.intValue();
-				
-				Double Transp=(Double.parseDouble(st.nextToken(",")));
-				int transpE=Transp.intValue();
-				
-				String NivelE=st.nextToken(",");
-				
-				Double Colegiatura=(Double.parseDouble(st.nextToken(",")));
-				int ColegiaturaP=Colegiatura.intValue();
-				
-				this.Cal.calculo(name, rfc, sueldoM, aguinaldo, PrimaV,myh,Funerarios, sgmm,hipotecarios,Donativos,subR,transpE,NivelE,ColegiaturaP);
-				
-				this.sb.setMessage("Guardado Exitosamente perfil de "+name);
-			}catch(Exception error) {
-				JOptionPane.showMessageDialog(this,"Archivo no valido");
-			}
+	private void previoCal() {
+		if(this.Primaria.isSelected()) {
+			this.NivelE="Primaria";
+		}else if(this.Secundaria.isSelected()) {
+			this.NivelE="Secundaria";
+		}else {
+			this.NivelE="Preparatoria";
 		}
+		
+		
+		
+		
+		if(this.nombre.getText().equals("")){
+			this.nombre.setText("No name");
+		}
+		
+		if(this.RFC.getText().equals("")){
+			this.RFC.setText("No RFC dado");
+
+		}
+		
+		if(this.SueldoM.getText().equals("")){
+			this.SueldoM.setText("0");
+
+		}
+		
+		
+		if(this.Aguinaldo.getText().equals("")){
+			this.Aguinaldo.setText("0");
+		}
+		if(this.PrimaV.getText().equals("")){
+			this.PrimaV.setText("0");
+		}
+		if(this.DMyHosp.getText().equals("")){
+			this.DMyHosp.setText("0");
+		}
+		if(this.GastosFun.getText().equals("")){
+			this.GastosFun.setText("0");
+		}
+		if(this.SGMM.getText().equals("")){
+			this.SGMM.setText("0");
+		}
+		if(this.Hipotecarios.getText().equals("")){
+			this.Hipotecarios.setText("0");
+		}
+		if(this.Donativos.getText().equals("")){
+			this.Donativos.setText("0");
+		}
+		if(this.AportacionRet.getText().equals("")){
+			this.AportacionRet.setText("0");
+		}
+		if(this.TransporteE.getText().equals("")){
+			this.TransporteE.setText("0");
+		}
+		if(this.ColegiaturaTot.getText().equals("")){
+			this.ColegiaturaTot.setText("0");
+		}
+		Cal.Actualizar(this.nombre.getText(),this.RFC.getText(),Integer.parseInt(this.SueldoM.getText()), Integer.parseInt(this.Aguinaldo.getText()),Integer.parseInt(this.PrimaV.getText()),Integer.parseInt(this.DMyHosp.getText()),Integer.parseInt(this.GastosFun.getText()),Integer.parseInt(this.SGMM.getText()),Integer.parseInt(this.Hipotecarios.getText()),Integer.parseInt(this.Donativos.getText()),Integer.parseInt(this.AportacionRet.getText()),Integer.parseInt(this.TransporteE.getText()),this.NivelE,Integer.parseInt(this.ColegiaturaTot.getText()));
 		
 	}
 
+
+	private void Limpia() {
+		this.nombre.setText("");
+		this.RFC.setText("");
+		this.SueldoM.setText("");
+		this.Aguinaldo.setText("");
+		this.PrimaV.setText("");
+		this.DMyHosp.setText("");
+		this.GastosFun.setText("");
+		this.SGMM.setText("");
+		this.Hipotecarios.setText("");
+		this.Donativos.setText("");
+		this.AportacionRet.setText("");
+		this.TransporteE.setText("");
+		this.ColegiaturaTot.setText("");
+		
+	}
 
 
 
