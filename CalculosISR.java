@@ -1,10 +1,10 @@
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.StringTokenizer;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
 
 public class CalculosISR {                      // => Quedan Igual
 	private PanelResultados pr;
@@ -39,7 +39,11 @@ public class CalculosISR {                      // => Quedan Igual
 	private int Total;
 	private StatusBar sb;
 	
-	
+	private JFileChooser fileChooser;
+	private BufferedReader br;
+	int returnVal;
+	private File file;
+	String currentLine;
 	
 	
 	
@@ -74,6 +78,7 @@ public class CalculosISR {                      // => Quedan Igual
 		this.PorcExced=0;
 		this.PagoEx=0;
 		this.Total=0;
+		fileChooser=new JFileChooser();
 		
 	}
 	public void Actualizar(String name, String rfc, int sueldoM, int Aguinaldo, int PrimaV, int DMyH,
@@ -167,7 +172,7 @@ public class CalculosISR {                      // => Quedan Igual
 		
 		
 		try {
-			 JFileChooser f = new JFileChooser();
+			JFileChooser f = new JFileChooser();
 		        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 		        f.showSaveDialog(null);
 		        PrintWriter pw=new PrintWriter(f.getSelectedFile()+"\\Resultados_de_"+this.nombre+".csv");
@@ -223,22 +228,95 @@ public class CalculosISR {                      // => Quedan Igual
 		this.Total=0;// Hata aqui <=
 		
 		
-		
-		try {
-			JOptionPane.showMessageDialog(this.pr, "Ahora escogeras donde lo quieres guardar");
-			 JFileChooser f = new JFileChooser();
-			 f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-			 f.showSaveDialog(null);
-		     PrintWriter pw=new PrintWriter(f.getSelectedFile()+"\\Resultados_de_"+this.nombre+".csv");
-		     System.out.println(f.getCurrentDirectory());
-		     System.out.println(f.getSelectedFile());
-		     pw.println("Nombre,RFC,Sueldo mensual,Ingreso anual,Aguinaldo,Aguinaldo exento,Aguinaldo gravado,Prima vacacional,Prima vacacional excenta,Prima vacacional gravada,Total ingresos gravan,Medicos y hospitales,Gastos funerarios,SGMM,Hipotecarios,Donativos,Subcuenta retiro,Transporte escolar,Nivel educativo,Maximo a deducir colegiatura,Colegiatura pagada,Total deducciones (sin retiro),Deduccion permitida 10%,Monto ISR,Cuota fija,Porcentaje excedente,Pago excedente,Total a pagar");
-		     pw.println(this.nombre+","+this.RFC+","+this.SueldoM+","+this.IngresoA+","+this.Aguinaldo+","+this.AguinaldoE+","+this.AguinaldoG+","+this.PrimaV+","+this.PrimaVE+","+this.PrimaVG+","+this.TotalIngresosG+","+this.MyH+","+this.GatsosFun+","+this.SGMM+","+this.Hipotecarios+","+this.Donativos+","+this.SubRetiro+","+this.TransporteE+","+this.NivelE+","+this.MaxDedColeg+","+this.Colegiatura+","+this.TotalDedNoRetiro+","+this.DedPerm+","+this.MontoISR+","+this.CuotaFija+","+this.PorcExced+","+this.PagoEx+","+this.Total);
-		     pw.close();  
-		}catch(Exception e) {
-			System.out.println("error");
+	}
+	
+	
+	public void EntradaySalida() {
+		returnVal=fileChooser.showOpenDialog(null);
+		if(returnVal==JFileChooser.APPROVE_OPTION) {
+			file=fileChooser.getSelectedFile();
+			StringTokenizer st;
+			try{
+				JOptionPane.showMessageDialog(this.pr, "Ahora escogeras donde lo quieres guardar");
+				JFileChooser f = new JFileChooser();
+				f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+				f.showSaveDialog(null);
+			    PrintWriter pw=new PrintWriter(f.getSelectedFile()+"\\Resultados_de_"+this.nombre+".csv");
+			    System.out.println(f.getCurrentDirectory());
+			    System.out.println(f.getSelectedFile());
+			    
+			    
+			    
+			    
+			    
+			    
+				br=new BufferedReader(new FileReader(file));
+				pw.println("Nombre,RFC,Sueldo mensual,Ingreso anual,Aguinaldo,Aguinaldo exento,Aguinaldo gravado,Prima vacacional,Prima vacacional excenta,Prima vacacional gravada,Total ingresos gravan,Medicos y hospitales,Gastos funerarios,SGMM,Hipotecarios,Donativos,Subcuenta retiro,Transporte escolar,Nivel educativo,Maximo a deducir colegiatura,Colegiatura pagada,Total deducciones (sin retiro),Deduccion permitida 10%,Monto ISR,Cuota fija,Porcentaje excedente,Pago excedente,Total a pagar");
+				
+				while((currentLine=br.readLine())!=null) {
+					st=new StringTokenizer(currentLine);
+					
+					String name=st.nextToken(",");//
+					
+					String rfc=st.nextToken(",");//
+					
+					Double sueldo=(Double.parseDouble(st.nextToken(",")));
+					int sueldoM= sueldo.intValue();//
+					
+					
+					
+					Double Aguinaldo=(Double.parseDouble(st.nextToken(",")));
+					int aguinaldo=Aguinaldo.intValue();
+					
+					
+					
+					Double Primav=(Double.parseDouble(st.nextToken(",")));
+					int PrimaV=Primav.intValue();
+					
+					
+					Double MyH=(Double.parseDouble(st.nextToken(",")));
+					int myh=MyH.intValue();
+					
+					Double GF=(Double.parseDouble(st.nextToken(",")));
+					int Funerarios=GF.intValue();
+					
+					Double SGMM=(Double.parseDouble(st.nextToken(",")));
+					int sgmm=SGMM.intValue();
+					
+					Double Hip=(Double.parseDouble(st.nextToken(",")));
+					int hipotecarios=Hip.intValue();
+					
+					Double Donat=(Double.parseDouble(st.nextToken(",")));
+					int Donativos=Donat.intValue();
+					
+					Double SubR=(Double.parseDouble(st.nextToken(",")));
+					int subR=SubR.intValue();
+					
+					Double Transp=(Double.parseDouble(st.nextToken(",")));
+					int transpE=Transp.intValue();
+					
+					String NivelE=st.nextToken(",");
+					
+					Double Colegiatura=(Double.parseDouble(st.nextToken(",")));
+					int ColegiaturaP=Colegiatura.intValue();
+					
+					this.calculo(name, rfc, sueldoM, aguinaldo, PrimaV,myh,Funerarios, sgmm,hipotecarios,Donativos,subR,transpE,NivelE,ColegiaturaP);
+					
+				   
+				    pw.println(this.nombre+","+this.RFC+","+this.SueldoM+","+this.IngresoA+","+this.Aguinaldo+","+this.AguinaldoE+","+this.AguinaldoG+","+this.PrimaV+","+this.PrimaVE+","+this.PrimaVG+","+this.TotalIngresosG+","+this.MyH+","+this.GatsosFun+","+this.SGMM+","+this.Hipotecarios+","+this.Donativos+","+this.SubRetiro+","+this.TransporteE+","+this.NivelE+","+this.MaxDedColeg+","+this.Colegiatura+","+this.TotalDedNoRetiro+","+this.DedPerm+","+this.MontoISR+","+this.CuotaFija+","+this.PorcExced+","+this.PagoEx+","+this.Total);
+					
+				}
+			    pw.close();  
+				
+			    
+				this.sb.setMessage("Archivo guardado Exitosamente");
+			}catch(Exception error) {
+				JOptionPane.showMessageDialog(this.pr,"Error, Archivo no valido");
+			}
 		}
-		this.sb.setMessage("Guardado y configurado exitosamente");
+		
+		
+		
 	}
 	
 	
