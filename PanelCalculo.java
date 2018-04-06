@@ -31,9 +31,11 @@ public class PanelCalculo extends JPanel implements ActionListener{
 	private JTextField Donativos;
 	private JTextField AportacionRet;
 	private JTextField TransporteE;
+	private JRadioButton Preescolar;
 	private JRadioButton Primaria;
 	private JRadioButton Secundaria;
-	private JRadioButton Preparatoria;
+	private JRadioButton ProfesionalTec;
+	private JRadioButton Bachillerato;
 	private JTextField ColegiaturaTot;
 	private JButton Submit;
 	private JButton Abrir;
@@ -71,18 +73,23 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.Donativos=new JTextField(10);
 		this.AportacionRet=new JTextField(6);
 		this.TransporteE=new JTextField(5);
+		this.Preescolar=new JRadioButton("Preescolar");
 		this.Primaria=new JRadioButton("Primaria");
 		this.Secundaria=new JRadioButton("Secundaria");
-		this.Preparatoria=new JRadioButton("Preparatoria");
+		this.ProfesionalTec=new JRadioButton("Profesional Tecnico");
+		this.Bachillerato=new JRadioButton("Bachillerato o equivalente");
 		ButtonGroup bg=new ButtonGroup();
+		bg.add(this.Preescolar);
 		bg.add(this.Primaria);
 		bg.add(this.Secundaria);
-		bg.add(this.Preparatoria);
+		bg.add(this.ProfesionalTec);
+		bg.add(this.Bachillerato);
 		this.ColegiaturaTot=new JTextField(5);
 		this.Abrir=new JButton("VIZUALIZAR RESULTADOS");
 		this.Guardar=new JButton("GUARDAR");
 		this.Submit=new JButton("CALCULAR ISR");
 		this.Regresar=new JButton("Home");
+		this.Limpiar=new JButton("Limpiar");
 		
 		this.add(new JLabel("CALCULADORA ISR"));
 		this.add(new JLabel("                  ------------------------------------------------------------                 "));
@@ -114,7 +121,8 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.add(new JLabel("NIVEL EDUCATIVO:                      "));
 		this.add(this.Primaria);
 		this.add(this.Secundaria);
-		this.add(this.Preparatoria);
+		this.add(this.ProfesionalTec);
+		this.add(this.Bachillerato);
 		this.add(new JLabel("    "));
 		this.add(new JLabel("COLEGIATURA TOTAL $"));
 		this.add(this.ColegiaturaTot);
