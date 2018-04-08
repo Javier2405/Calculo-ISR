@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 import javax.swing.ButtonGroup;
@@ -85,7 +87,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		bg.add(this.ProfesionalTec);
 		bg.add(this.Bachillerato);
 		this.ColegiaturaTot=new JTextField(5);
-		this.Abrir=new JButton("VIZUALIZAR RESULTADOS");
+		this.Abrir=new JButton("ABRIR DOCUMENTO .CSV");
 		this.Guardar=new JButton("GUARDAR");
 		this.Submit=new JButton("CALCULAR ISR");
 		this.Regresar=new JButton("Home");
@@ -149,16 +151,12 @@ public class PanelCalculo extends JPanel implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
-		
-		
-		
 		try {
 			if(e.getSource()==this.Submit) {
 				this.previoCal();
 			}else if(e.getSource()==this.Abrir) {
 				System.out.println("abrir");
 				this.abrirDatos();
-				
 				
 			}else if(e.getSource() == this.Regresar) {
 				VentanaInicio vi = new VentanaInicio();
@@ -170,6 +168,8 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		catch(NumberFormatException es){
 			JOptionPane.showMessageDialog(this,"Recuerda rellenar todos los campos, de manera correcta");
 			this.sb.setMessage("Recuarda no incluir letras en campos de gastos");
+		}catch(IndexOutOfBoundsException error){
+			JOptionPane.showMessageDialog(this,"Aqui esta el error");
 		}catch(Exception es) {
 			JOptionPane.showMessageDialog(this,"Rellena todos los campos, error");
 		}
@@ -266,10 +266,6 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		
 	}
 
-
-
-
-
 	private void abrirDatos() {
 		returnVal=fileChooser.showOpenDialog(null);
 		if(returnVal==JFileChooser.APPROVE_OPTION) {
@@ -277,7 +273,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 			StringTokenizer st;
 			try{
 				br=new BufferedReader(new FileReader(file));
-				br.readLine();
+				//br.readLine();
 				currentLine=br.readLine();
 				st=new StringTokenizer(currentLine);
 				
@@ -286,86 +282,89 @@ public class PanelCalculo extends JPanel implements ActionListener{
 				String rfc=st.nextToken(",");//
 				
 				Double sueldo=(Double.parseDouble(st.nextToken(",")));
-				int sueldoM= sueldo.intValue();//
+				//int sueldoM= sueldo.intValue();//
 				
-				Double ingreso=(Double.parseDouble(st.nextToken(",")));
-				int ingresoA=ingreso.intValue();//
+				//Double ingreso=(Double.parseDouble(st.nextToken(",")));
+				//int ingresoA=ingreso.intValue();//
 				
 				Double Aguinaldo=(Double.parseDouble(st.nextToken(",")));
-				int aguinaldo=Aguinaldo.intValue();
+				//int aguinaldo=Aguinaldo.intValue();
 				
-				Double AguinaldoE=(Double.parseDouble(st.nextToken(",")));
-				int aguinaldoE=AguinaldoE.intValue();
+				//Double AguinaldoE=(Double.parseDouble(st.nextToken(",")));
+				//int aguinaldoE=AguinaldoE.intValue();
 				
-				Double AguinaldoG=(Double.parseDouble(st.nextToken(",")));
-				int aguinaldoG=AguinaldoG.intValue();
+				//Double AguinaldoG=(Double.parseDouble(st.nextToken(",")));
+				//int aguinaldoG=AguinaldoG.intValue();
 				
 				Double Primav=(Double.parseDouble(st.nextToken(",")));
-				int PrimaV=Primav.intValue();
+				//int PrimaV=Primav.intValue();
 				
-				Double PrimavE=(Double.parseDouble(st.nextToken(",")));
-				int PrimaVE=PrimavE.intValue();
+				//Double PrimavE=(Double.parseDouble(st.nextToken(",")));
+				//int PrimaVE=PrimavE.intValue();
 				
-				Double PrimavG=(Double.parseDouble(st.nextToken(",")));
-				int PrimaVG=PrimavG.intValue();
+				//Double PrimavG=(Double.parseDouble(st.nextToken(",")));
+				//int PrimaVG=PrimavG.intValue();
 				
-				Double TotalIG=(Double.parseDouble(st.nextToken(",")));
-				int totalIG=TotalIG.intValue();
+				//Double TotalIG=(Double.parseDouble(st.nextToken(",")));
+				//int totalIG=TotalIG.intValue();
 				
 				Double MyH=(Double.parseDouble(st.nextToken(",")));
-				int myh=MyH.intValue();
+				//int myh=MyH.intValue();
 				
 				Double GF=(Double.parseDouble(st.nextToken(",")));
-				int Funerarios=GF.intValue();
+				//int Funerarios=GF.intValue();
 				
 				Double SGMM=(Double.parseDouble(st.nextToken(",")));
-				int sgmm=SGMM.intValue();
+				//int sgmm=SGMM.intValue();
 				
 				Double Hip=(Double.parseDouble(st.nextToken(",")));
-				int hipotecarios=Hip.intValue();
+				//int hipotecarios=Hip.intValue();
 				
 				Double Donat=(Double.parseDouble(st.nextToken(",")));
-				int Donativos=Donat.intValue();
+				//int Donativos=Donat.intValue();
 				
 				Double SubR=(Double.parseDouble(st.nextToken(",")));
-				int subR=SubR.intValue();
+				//int subR=SubR.intValue();
 				
 				Double Transp=(Double.parseDouble(st.nextToken(",")));
-				int transpE=Transp.intValue();
+				//int transpE=Transp.intValue();
 				
 				String NivelE=st.nextToken(",");
 				
-				Double MaxDedColeg=(Double.parseDouble(st.nextToken(",")));
-				int maxdedcoleg=MaxDedColeg.intValue();
+				//Double MaxDedColeg=(Double.parseDouble(st.nextToken(",")));
+				//int maxdedcoleg=MaxDedColeg.intValue();
 				
 				Double Colegiatura=(Double.parseDouble(st.nextToken(",")));
-				int ColegiaturaP=Colegiatura.intValue();
+				//int ColegiaturaP=Colegiatura.intValue();
 				
-				Double Totald=(Double.parseDouble(st.nextToken(",")));
-				int totalD=Totald.intValue();
+				//Double Totald=(Double.parseDouble(st.nextToken(",")));
+				//int totalD=Totald.intValue();
 				
-				Double DeducP=(Double.parseDouble(st.nextToken(",")));
-				int deducP=DeducP.intValue();
+				//Double DeducP=(Double.parseDouble(st.nextToken(",")));
+				//int deducP=DeducP.intValue();
 				
-				Double MontoISR=(Double.parseDouble(st.nextToken(",")));
-				int montoISR=MontoISR.intValue();
+				//Double MontoISR=(Double.parseDouble(st.nextToken(",")));
+				//int montoISR=MontoISR.intValue();
 				
-				Double CuotaF=(Double.parseDouble(st.nextToken(",")));
-				int CuotaFija=CuotaF.intValue();
+				//Double CuotaF=(Double.parseDouble(st.nextToken(",")));
+				//int CuotaFija=CuotaF.intValue();
 				
-				Double PorcE=(Double.parseDouble(st.nextToken(",")));
-				int PorcentE=PorcE.intValue();
+				//Double PorcE=(Double.parseDouble(st.nextToken(",")));
+				//int PorcentE=PorcE.intValue();
 				
-				Double pagoE=(Double.parseDouble(st.nextToken(",")));
-				int PagoE=pagoE.intValue();
+				//Double pagoE=(Double.parseDouble(st.nextToken(",")));
+				//int PagoE=pagoE.intValue();
 				
-				Double TotalP=(Double.parseDouble(st.nextToken(",")));
-				int TotalPa=TotalP.intValue();
+				//Double TotalP=(Double.parseDouble(st.nextToken(",")));
+				//int TotalPa=TotalP.intValue();
 				
-				Cal.abrir(name, rfc, sueldoM, ingresoA, aguinaldo, aguinaldoE, aguinaldoG, PrimaV, PrimaVE, PrimaVG, totalIG, myh, Funerarios, sgmm, hipotecarios, Donativos, subR, transpE, NivelE, maxdedcoleg, ColegiaturaP, totalD, deducP, montoISR, CuotaFija, PorcentE, PagoE, TotalPa);
+				Cal.abrir(name, rfc, sueldo, Aguinaldo, Primav, MyH, GF,
+						SGMM, Hip, Donat, SubR, Transp, NivelE, Colegiatura);
 				this.sb.setMessage("Cargado Exitosamente perfil de "+name);
-			}catch(Exception error) {
-				JOptionPane.showMessageDialog(this,"Archivo no valido");
+			}catch(IOException error) {
+				JOptionPane.showMessageDialog(this,"No se pudo leer el archivo");
+			}catch(IndexOutOfBoundsException error){
+				JOptionPane.showMessageDialog(this,"Aqui esta el error");
 			}
 		}
 		
