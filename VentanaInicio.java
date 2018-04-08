@@ -1,4 +1,5 @@
 
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -17,12 +18,11 @@ public class VentanaInicio extends JFrame {
 				dispose();
 			}
 		});
-	
-	
 	}
 	public static void main(String[] args) {
 		VentanaInicio a=new VentanaInicio();
 	}
 
 }
+
 
