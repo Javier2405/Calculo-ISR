@@ -161,7 +161,10 @@ public class PanelCalculo extends JPanel implements ActionListener{
 			}else if(e.getSource() == this.Regresar) {
 				VentanaInicio vi = new VentanaInicio();
 
-			}else {
+			}else if(e.getSource()==this.Limpiar) {
+				this.Limpia();
+			}
+			else {
 				this.saveFile();
 			}
 		}
