@@ -170,7 +170,7 @@ public class PanelResultados extends JPanel{
 		
 		g.drawString("$ "+this.MontoISR, 35, 640);
 		g.drawString("$ "+this.CuotaF, 185, 640);
-		g.drawString("$ "+this.PorcentEx, 335, 640);
+		g.drawString(+this.PorcentEx+"    %", 335, 640);
 		
 		g.drawString("$ "+this.PagoEx, 490, 640);
 		g.drawString("$ "+this.Total, 640, 640);
