@@ -185,9 +185,9 @@ public class PanelCalculo extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(this,"Recuerda rellenar todos los campos, de manera correcta");
 			this.sb.setMessage("Recuarda no incluir letras en campos de gastos");
 		}catch(IndexOutOfBoundsException error){
-			JOptionPane.showMessageDialog(this,"Aqui esta el error");
+			JOptionPane.showMessageDialog(this,"Error");
 		}catch(Exception es) {
-			JOptionPane.showMessageDialog(this,"Rellena todos los campos, error");
+			JOptionPane.showMessageDialog(this,"Error de archivo, recuerda abrir unicamente resultados .csv");
 		}
 		
 		
@@ -314,9 +314,7 @@ public class PanelCalculo extends JPanel implements ActionListener{
 						SGMM, Hip, Donat, SubR, Transp, NivelE, Colegiatura);
 				this.sb.setMessage("Cargado Exitosamente perfil de "+name);
 			}catch(IOException error) {
-				JOptionPane.showMessageDialog(this,"No se pudo leer el archivo");
-			}catch(IndexOutOfBoundsException error){
-				JOptionPane.showMessageDialog(this,"Aqui esta el error");
+				JOptionPane.showMessageDialog(this,"Archivo incorrecto o corrupto, debes seleccionar resultados");
 			}
 		}
 		
