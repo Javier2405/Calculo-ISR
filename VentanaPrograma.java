@@ -1,12 +1,20 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
 public class VentanaPrograma extends JFrame{
+	
 	public VentanaPrograma() {
 		super();
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+
+	    this.setLocation(
+	            (pantalla.width-1050) / 2,
+	            (pantalla.height-800) / 2);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		StatusBar sb=new StatusBar();
 		PanelResultados pr=new PanelResultados();
@@ -22,14 +30,12 @@ public class VentanaPrograma extends JFrame{
 		this.setVisible(true);
 		
 		/*this.addWindowListener(new WindowAdapter() {
-			public void windowDeactivated(WindowEvent e) {
+			public void windowsDeactivated(WindowEvent e) {
 					dispose();
 			}
 		});*/
-	
-	
-	
 	}
+	
 	public static void main(String[] args) {
 		VentanaPrograma a=new VentanaPrograma();
 	}
