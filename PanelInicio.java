@@ -25,10 +25,10 @@ public class PanelInicio extends JPanel{
 		
 		this.btAceptar = new JButton("Aceptar");
 		
-		this.rbIndividual = new JRadioButton("Realizar el calculo para una sola persona");
-		this.rbDocumento = new JRadioButton("Realizar el calculo para varias personas por medio de un documento .csv");
+		this.rbIndividual = new JRadioButton("Realizar calculo ISR para una sola persona");
+		this.rbDocumento = new JRadioButton("Realizar calculo ISR para varias personas por medio de un documento .csv");
 		this.rbIndividual.setSelected(true);
-		this.etiqueta = new JLabel("Selecciona la opcion que desees");
+		this.etiqueta = new JLabel("Selecciona la opcion que desees:");
 		
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(this.rbIndividual);
