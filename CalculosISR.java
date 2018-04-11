@@ -1,7 +1,9 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.StringTokenizer;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -90,6 +92,7 @@ public class CalculosISR {                      // => Quedan Igual
 	public void Actualizar(String name, String rfc, double sueldoM, double Aguinaldo, double PrimaV, double DMyH,
 			double GastosFun, double SGMM, double Hipotecarios, double Donativos, double AportacionRet, double Transporte, String NivelE,
 			double Colegiatura) {
+		
 		this.nombre=name;//
 		this.RFC=rfc;//
 		this.SueldoM=sueldoM;//
@@ -106,8 +109,10 @@ public class CalculosISR {                      // => Quedan Igual
 		this.NivelE=NivelE;//
 		this.Colegiatura=Colegiatura;//
 		
+		this.calculo(this.nombre, this.RFC, this.SueldoM, this.Aguinaldo, this.PrimaV,this.MyH,this.GatsosFun,
+				this.SGMM,this.Hipotecarios,this.Donativos,this.SubRetiro,this.TransporteE,this.NivelE,this.Colegiatura);
 		
-		//CALCULOS
+		/*//CALCULOS
 		this.AguinaldoE=this.SueldoM/2;
 		this.AguinaldoG=this.Aguinaldo-this.AguinaldoE;
 		this.PrimaVE=80.04*15;
@@ -124,11 +129,12 @@ public class CalculosISR {                      // => Quedan Igual
 		this.MontoISR=this.TotalIngresosG-this.DedPerm;
 		TarifaISR(this.MontoISR);
 		this.PagoEx=(this.MontoISR-this.LimiteInf)*(this.PorcExced/100);
-		this.Total=this.CuotaFija+this.PagoEx;
+		this.Total=this.CuotaFija+this.PagoEx;*/
 		pr.Imprimir(this.nombre, this.RFC, this.SueldoM,this.IngresoA,this.Aguinaldo,this.PrimaV,this.MyH,this.GatsosFun,this.SGMM,this.Hipotecarios,this.Donativos,this.SubRetiro,this.TransporteE,this.NivelE,this.Colegiatura,this.AguinaldoE,this.AguinaldoG,this.PrimaVE,this.PrimaVG,this.TotalIngresosG,this.MaxDedColeg,this.TotalDedNoRetiro,this.DedPerm,this.MontoISR,this.CuotaFija,this.PorcExced,this.PagoEx,this.Total);
 		
 		
 	}
+	//CALCULO DE ISR INDIVIDUAL
 	public void abrir(String name, String rfc, Double sueldo, Double aguinaldo2,// Ya esta hecho es el vizualizador
 			Double primav2, Double myH2, Double gF, Double sGMM2, Double hip, Double donat, Double subR,
 			Double transp, String NivelE, Double colegiatura2) {
@@ -150,28 +156,11 @@ public class CalculosISR {                      // => Quedan Igual
 		this.calculo(this.nombre, this.RFC, this.SueldoM, this.Aguinaldo, this.PrimaV,this.MyH,this.GatsosFun,
 				this.SGMM,this.Hipotecarios,this.Donativos,this.SubRetiro,this.TransporteE,this.NivelE,this.Colegiatura);
 		
-		/*
-		this.IngresoA=this.SueldoM*12;//DONE 
-		this.AguinaldoE=aguinaldoE2;
-		this.AguinaldoG=aguinaldoG2;
-		this.PrimaVE=primavE2;
-		this.PrimaVG=primavG2;
-		this.TotalIngresosG=totalIG;
-		this.MaxDedColeg=maxDedColeg2;
-		this.TotalDedNoRetiro=totald;
-		this.DedPerm=deducP;
-		this.MontoISR=montoISR2;
-		this.CuotaFija=cuotaF;
-		this.PorcExced=porcE;
-		this.PagoEx=pagoE;
-		this.Total=totalP;*/
-		
-		
 		pr.Imprimir(this.nombre, this.RFC, this.SueldoM,this.IngresoA,this.Aguinaldo,this.PrimaV,this.MyH,this.GatsosFun,this.SGMM,this.Hipotecarios,this.Donativos,this.SubRetiro,this.TransporteE,this.NivelE,this.Colegiatura,this.AguinaldoE,this.AguinaldoG,this.PrimaVE,this.PrimaVG,this.TotalIngresosG,this.MaxDedColeg,this.TotalDedNoRetiro,this.DedPerm,this.MontoISR,this.CuotaFija,this.PorcExced,this.PagoEx,this.Total);
 		
-		
-		
 	}
+	
+	//GUUARDAR ARCHIVO INDIVIDUAL
 	public void saveData() {
 		System.out.println("data save");
 
@@ -186,15 +175,13 @@ public class CalculosISR {                      // => Quedan Igual
 		        pw.println(this.nombre+","+this.RFC+","+this.SueldoM+","+this.IngresoA+","+this.Aguinaldo+","+this.AguinaldoE+","+this.AguinaldoG+","+this.PrimaV+","+this.PrimaVE+","+this.PrimaVG+","+this.TotalIngresosG+","+this.MyH+","+this.GatsosFun+","+this.SGMM+","+this.Hipotecarios+","+this.Donativos+","+this.SubRetiro+","+this.TransporteE+","+this.NivelE+","+this.MaxDedColeg+","+this.Colegiatura+","+this.TotalDedNoRetiro+","+this.DedPerm+","+this.MontoISR+","+this.CuotaFija+","+this.PorcExced+","+this.PagoEx+","+this.Total);
 
 		        pw.close();
-
-		
 		}catch(Exception e) {
 			System.out.println("error");
 		}
 		
 		
 	}
-	
+	//CALCULOS
 	public void calculo(String name, String rfc2, double sueldoM2, double aguinaldo2, double primaV2, double myH2, double gatsosFun2,
 			double sGMM2, double hipotecarios2, double donativos2, double subRetiro2, double transporteE2, String nivelE2, double colegiatura2) {
 		this.nombre=name;//
@@ -212,9 +199,7 @@ public class CalculosISR {                      // => Quedan Igual
 		this.TransporteE=transporteE2;//
 		this.NivelE=nivelE2;//
 		this.Colegiatura=colegiatura2;//
-		
-		
-		//CALCULOS
+
 		this.AguinaldoE=this.SueldoM/2;
 		this.AguinaldoG=this.Aguinaldo-this.AguinaldoE;
 		this.PrimaVE=80.04*15;
@@ -236,6 +221,7 @@ public class CalculosISR {                      // => Quedan Igual
 		
 	}
 	
+	//CALCULO NIVEL EDUCATIVO
 	public double DedColegiatura(String NivelE) {
 		if(NivelE == "Preescolar" ) {
 			return 14200;
@@ -250,6 +236,7 @@ public class CalculosISR {                      // => Quedan Igual
 		}
 	}
 	
+	//CALCULO TARIFA ISR
 	public void TarifaISR(double MontoISR) {
 		if(0.01<MontoISR && MontoISR<5952.84) {
 			this.CuotaFija=0;
@@ -298,6 +285,7 @@ public class CalculosISR {                      // => Quedan Igual
 		}
 	}
 	
+	//ABRIR Y GUARDAR DE MULTIPLES ENTRADAS
 	public void EntradaySalida(String NombreDoc) {
 		returnVal=fileChooser.showOpenDialog(null);
 		if(returnVal==JFileChooser.APPROVE_OPTION) {
@@ -318,23 +306,18 @@ public class CalculosISR {                      // => Quedan Igual
 				while((currentLine=br.readLine())!=null) {
 					st=new StringTokenizer(currentLine);
 					
-					String name=st.nextToken(",");//
+					String name=st.nextToken(",");//					
 					
 					String rfc=st.nextToken(",");//
 					
 					Double sueldo=(Double.parseDouble(st.nextToken(",")));
 					int sueldoM= sueldo.intValue();//
-					
-					
-					
+
 					Double Aguinaldo=(Double.parseDouble(st.nextToken(",")));
 					int aguinaldo=Aguinaldo.intValue();
-					
-					
-					
+
 					Double Primav=(Double.parseDouble(st.nextToken(",")));
 					int PrimaV=Primav.intValue();
-					
 					
 					Double MyH=(Double.parseDouble(st.nextToken(",")));
 					int myh=MyH.intValue();
@@ -363,29 +346,26 @@ public class CalculosISR {                      // => Quedan Igual
 					int ColegiaturaP=Colegiatura.intValue();
 					
 					this.calculo(name, rfc, sueldoM, aguinaldo, PrimaV,myh,Funerarios, sgmm,hipotecarios,Donativos,subR,transpE,NivelE,ColegiaturaP);
-					
-				   
+					   
 				    pw.println(this.nombre+","+this.RFC+","+this.SueldoM+","+this.IngresoA+","+this.Aguinaldo+","+this.AguinaldoE+","+this.AguinaldoG+","+this.PrimaV+","+this.PrimaVE+","+this.PrimaVG+","+this.TotalIngresosG+","+this.MyH+","+this.GatsosFun+","+this.SGMM+","+this.Hipotecarios+","+this.Donativos+","+this.SubRetiro+","+this.TransporteE+","+this.NivelE+","+this.MaxDedColeg+","+this.Colegiatura+","+this.TotalDedNoRetiro+","+this.DedPerm+","+this.MontoISR+","+this.CuotaFija+","+this.PorcExced+","+this.PagoEx+","+this.Total);
 					JOptionPane.showMessageDialog(null, "El ISR ha sido calculado con exito. El archivo ha sido guardado en la carpeta seleccionada");
 				}
-			    pw.close();  
+			    pw.close(); 
+			    br.close();
 				
 			    
-				this.sb.setMessage("Archivo guardado Exitosamente");
-			}catch(Exception error) {
+				//this.sb.setMessage("Archivo guardado Exitosamente");
+			}/*catch(Exception error) {
 				JOptionPane.showMessageDialog(this.pr,"Error, Archivo no valido");
+			}*/
+				catch(IndexOutOfBoundsException error) {
+				JOptionPane.showMessageDialog(this.pr,"Out of bounds");
+			}	catch(FileNotFoundException error) {
+				JOptionPane.showMessageDialog(this.pr,"No se encontro el archivo");
+			}	catch(IOException error) {
+				JOptionPane.showMessageDialog(this.pr,"IOException");
 			}
 		}
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
 }
- 
  
