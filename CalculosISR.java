@@ -198,7 +198,6 @@ public class CalculosISR {                      // => Quedan Igual
 		this.TransporteE=transporteE2;//
 		this.NivelE=nivelE2;//
 		this.Colegiatura=colegiatura2;//
-		System.out.println(this.NivelE);
 		
 		//AGUINALDOS
 		this.AguinaldoE=this.SueldoM/2;
