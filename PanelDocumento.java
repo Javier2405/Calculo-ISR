@@ -22,18 +22,20 @@ public class PanelDocumento extends JPanel{
 	public PanelDocumento() {
 		super();
 		this.setPreferredSize(new Dimension(600,200));
+		this.NombreDoc = "Resultados_ISR";
 		
 		this.btAbrirDoc = new JButton("ABRIR DOCUMENTO .CSV");
 		this.btHome = new JButton("HOME");
 		
 		this.tfNombreDoc = new JTextField(10);
 		
+		
 		this.etiqueta0 = new JLabel("Ingresa los datos que deseas analizar en un documento .csv");
 		this.etiqueta1 = new JLabel("Nombre del documento a guardar:");
 		
 		this.btAbrirDoc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tfNombreDoc == null) {
+				if(tfNombreDoc.getText() == "") {
 					NombreDoc = "ResultadosISR";
 				}else {
 					NombreDoc = tfNombreDoc.getText();
@@ -69,4 +71,3 @@ public class PanelDocumento extends JPanel{
 		
 	}
 }
-
