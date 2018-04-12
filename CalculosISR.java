@@ -370,7 +370,6 @@ public class CalculosISR {                      // => Quedan Igual
 					int transpE=Transp.intValue();
 					
 					String NivelE=st.nextToken(",");
-					pw.println(NivelE);
 					
 					Double Colegiatura=(Double.parseDouble(st.nextToken(",")));
 					int ColegiaturaP=Colegiatura.intValue();
