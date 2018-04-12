@@ -1,5 +1,3 @@
-//Victor Javier Aguayo Mendoza A01229260
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.StringTokenizer;
