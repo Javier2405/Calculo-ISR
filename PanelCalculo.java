@@ -153,15 +153,17 @@ public class PanelCalculo extends JPanel implements ActionListener{
 		this.add(this.Regresar);
 		this.Regresar.addActionListener(this);
 		this.Limpiar.addActionListener(this);
+		this.nombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RFC.isFocusable();
+				
+			}
+			
+		});
 		
 		fileChooser=new JFileChooser();
 	}
 	
-	 
-
-	
-	
-	@Override
 	public void actionPerformed(ActionEvent e){
 		try {
 			if(e.getSource()==this.Submit) {
@@ -185,22 +187,25 @@ public class PanelCalculo extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(this,"Recuerda rellenar todos los campos, de manera correcta");
 			this.sb.setMessage("Recuarda no incluir letras en campos de gastos");
 		}catch(IndexOutOfBoundsException error){
-			JOptionPane.showMessageDialog(this,"Error");
+			JOptionPane.showMessageDialog(this,"Aqui esta el error");
 		}catch(Exception es) {
-			JOptionPane.showMessageDialog(this,"Error de archivo, recuerda abrir unicamente resultados .csv");
+			JOptionPane.showMessageDialog(this,"Rellena todos los campos, error");
 		}
 		
 		
 	}
 
-
 	private void previoCal() {
 		if(this.Primaria.isSelected()) {
 			this.NivelE="Primaria";
+		}else if(this.Preescolar.isSelected()) {
+			this.NivelE="Preescolar";
 		}else if(this.Secundaria.isSelected()) {
 			this.NivelE="Secundaria";
+		}else if(this.Bachillerato.isSelected()){
+			this.NivelE="Bachillerato";
 		}else {
-			this.NivelE="Preparatoria";
+			this.NivelE="Profesional";
 		}
 		
 		if(this.nombre.getText().equals("")){
@@ -314,7 +319,9 @@ public class PanelCalculo extends JPanel implements ActionListener{
 						SGMM, Hip, Donat, SubR, Transp, NivelE, Colegiatura);
 				this.sb.setMessage("Cargado Exitosamente perfil de "+name);
 			}catch(IOException error) {
-				JOptionPane.showMessageDialog(this,"Archivo incorrecto o corrupto, debes seleccionar resultados");
+				JOptionPane.showMessageDialog(this,"No se pudo leer el archivo");
+			}catch(IndexOutOfBoundsException error){
+				JOptionPane.showMessageDialog(this,"Aqui esta el error");
 			}
 		}
 		
